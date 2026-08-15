@@ -16,17 +16,6 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "composite": true,
-    "baseUrl": ".",
-    "paths": {
-      "@platform/config": ["packages/config/src"],
-      "@platform/logger": ["packages/logger/src"],
-      "@platform/shared": ["packages/shared/src"],
-      "@platform/kafka": ["packages/kafka/src"],
-      "@platform/auth": ["packages/auth/src"],
-      "@platform/validation": ["packages/validation/src"],
-      "@platform/observability": ["packages/observability/src"],
-      "@platform/types": ["packages/types/src"]
-    }
+    "composite": true
   }
 }
