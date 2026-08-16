@@ -1,6 +1,6 @@
-import pino, { type LoggerOptions } from 'pino';
+import type { LoggerOptions } from 'pino';
 
-export function createLogger(serviceName: string) {
+export function createLoggerOptions(serviceName: string): LoggerOptions {
   const options: LoggerOptions = {
     level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
     base: {
@@ -19,7 +19,5 @@ export function createLogger(serviceName: string) {
     };
   }
 
-  return pino(options);
+  return options;
 }
-
-export type Logger = ReturnType<typeof createLogger>;
