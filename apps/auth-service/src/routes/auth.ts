@@ -32,22 +32,28 @@ export async function authRoutes(app: FastifyInstance) {
     }
   });
 
-  app.post('/auth/login', async (request, reply) => {
-    const body = LoginSchema.parse(request.body);
+app.post('/auth/login', async (request, reply) => {
+  const body = LoginSchema.parse(request.body);
 
-    try {
-      return await service.login(body.email, body.password);
-    } catch (error) {
-      if (error instanceof Error && error.message === 'INVALID_CREDENTIALS') {
-        reply.code(401);
+  try {
+    return await service.login(body.email, body.password, {
+      ipAddress: request.ip,
+      ...(request.headers['user-agent'] !== undefined && {
+        userAgent: request.headers['user-agent'],
+      }),
+    });
+  } catch (error) {
+    if (error instanceof Error && error.message === 'INVALID_CREDENTIALS') {
+      reply.code(401);
 
-        return {
-          code: 'INVALID_CREDENTIALS',
-          message: 'Invalid email or password',
-        };
-      }
-
-      throw error;
+      return {
+        code: 'INVALID_CREDENTIALS',
+        message: 'Invalid email or password',
+      };
     }
-  });
+
+    throw error;
+  }
+});
+
 }
